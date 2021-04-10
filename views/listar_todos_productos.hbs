@@ -1,0 +1,32 @@
+
+
+{{#if arreglo.length}}
+<div class="container">
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Precio</th>
+      <th scope="col">Imagen</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each arreglo}}
+        <tr>
+      <th scope="row">{{id}}</th>
+      <td>{{title}}</td>
+      <td>{{price}}</td>
+      <td><img src="{{thumbnail}}" class="img-fluid" alt="Responsive image"></td>
+    </tr>
+{{/each}}
+  </tbody>
+</table>
+</div>
+{{else}}
+<h2>No hay productos</h2>
+{{/if}}
+
+
+
+
