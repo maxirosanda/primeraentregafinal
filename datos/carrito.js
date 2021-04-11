@@ -68,5 +68,45 @@
 		"url": "https://i.ibb.co/hVT6S0V/procesador1.jpg",
 		"precio": "25000",
 		"stock": "3"
+	},
+	{
+		"id": "111",
+		"timestamp": "6/3/2021 23:26:45 ",
+		"nombre": "procesador amd",
+		"des": "procesador de 12 nucleos ",
+		"cod": "sg3534f",
+		"url": "https://i.ibb.co/hVT6S0V/procesador1.jpg",
+		"precio": "25000",
+		"stock": "3"
+	},
+	{
+		"id": "111",
+		"timestamp": "6/3/2021 23:30:18 ",
+		"nombre": "procesador amd",
+		"des": "procesador de 12 nucleos ",
+		"cod": "sg3534f",
+		"url": "https://i.ibb.co/hVT6S0V/procesador1.jpg",
+		"precio": "25000",
+		"stock": "3"
+	},
+	{
+		"id": "111",
+		"timestamp": "0/3/2021 14:9:14 ",
+		"nombre": "procesador amd",
+		"des": "procesador de 12 nucleos ",
+		"cod": "sg3534f",
+		"url": "https://i.ibb.co/hVT6S0V/procesador1.jpg",
+		"precio": "25000",
+		"stock": "3"
+	},
+	{
+		"id": "111",
+		"timestamp": "0/3/2021 14:9:55 ",
+		"nombre": "procesador amd",
+		"des": "procesador de 12 nucleos ",
+		"cod": "sg3534f",
+		"url": "https://i.ibb.co/hVT6S0V/procesador1.jpg",
+		"precio": "25000",
+		"stock": "3"
 	}
 ]  
