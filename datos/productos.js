@@ -1,44 +1,42 @@
 [
 	{
-		"id": 19,
-		"title": "diego",
-		"price": "secret",
-		"thumbnail": "https://i.ibb.co/bPJLDD3/placavideo1.jpg"
+		"id": 111,
+		"timestamp": "6/3/2021 21:40:1 ",
+		"nombre": "procesador amd",
+		"des": "procesador de 12 nucleos ",
+		"cod": "sg3534f",
+		"url": "https://i.ibb.co/hVT6S0V/procesador1.jpg",
+		"precio": "25000",
+		"stock": "3"
 	},
 	{
-		"id": 20,
-		"title": "maxiii",
-		"price": "345355",
-		"thumbnail": "https://i.ibb.co/LkjvVRH/motherboard2.jpg"
+		"id": 112,
+		"timestamp": "6/3/2021 21:40:53 ",
+		"nombre": "placa de video nvidia",
+		"des": "la mejor placa de video del pais",
+		"cod": "gag34",
+		"url": "https://i.ibb.co/bPJLDD3/placavideo1.jpg",
+		"precio": "120000",
+		"stock": "3"
 	},
 	{
-		"id": 21,
-		"title": "maxi",
-		"price": "345355",
-		"thumbnail": "https://i.ibb.co/hVT6S0V/procesador1.jpg"
+		"id": 114,
+		"timestamp": "6/3/2021 21:50:15 ",
+		"nombre": "motherboard",
+		"des": "a320 pro",
+		"cod": "fsdagf4",
+		"url": "https://i.ibb.co/LkjvVRH/motherboard2.jpg",
+		"precio": "10000",
+		"stock": "3"
 	},
 	{
-		"id": 34,
-		"title": "camiseta",
-		"price": "3211",
-		"thumbnail": "https://i.ibb.co/CQcgNgN/procesador2.jpg"
-	},
-	{
-		"id": 35,
-		"title": "remera4",
-		"price": "800",
-		"thumbnail": "https://i.ibb.co/bPJLDD3/placavideo1.jpg"
-	},
-	{
-		"id": 38,
-		"title": "fsf",
-		"price": "sfs",
-		"thumbnail": "sfsfsf"
-	},
-	{
-		"id": 39,
-		"title": "maxi",
-		"price": "345355",
-		"thumbnail": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+		"id": 115,
+		"timestamp": "6/3/2021 21:51:6 ",
+		"nombre": "basoka 232",
+		"des": "la mejor placa",
+		"cod": "fd5g4",
+		"url": "https://i.ibb.co/LkjvVRH/motherboard2.jpg",
+		"precio": "432",
+		"stock": "3242"
 	}
 ]  

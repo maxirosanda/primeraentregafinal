@@ -1,32 +1,20 @@
 
-
-{{#if arreglo.length}}
 <div class="container">
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Id</th>
-      <th scope="col">Nombre</th>
-      <th scope="col">Precio</th>
-      <th scope="col">Imagen</th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#each arreglo}}
-        <tr>
-      <th scope="row">{{id}}</th>
-      <td>{{title}}</td>
-      <td>{{price}}</td>
-      <td><img src="{{thumbnail}}" class="img-fluid" alt="Responsive image"></td>
-    </tr>
-{{/each}}
-  </tbody>
-</table>
+
+  <div class=" fixed-top row bg-secondary text-white"> 
+<h1>Listado de Productos</h1>
+<a href="/productos/agregar" class="btn btn-primary col-3">Agregar producto al listado</a>
+<a href="/carrito/listar" class="btn btn-primary col-3 mx-5">Ir al carrito de productos</a>
 </div>
+<div class="separador"></div>
+{{#if arreglo.length}}
+<div id="lista_todos_productos"></div>
 {{else}}
 <h2>No hay productos</h2>
 {{/if}}
-
+</div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/clienteProductos.js"></script>
 
 
 

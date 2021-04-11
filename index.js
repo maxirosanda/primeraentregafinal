@@ -1,9 +1,9 @@
 var fs = require('fs');
 var express = require('express');
-var moduloLeer = require('./modulos/moduloLeer');
-var moduloGuardar = require('./modulos/moduloGuardar');
-var moduloActualizar = require('./modulos/moduloActualizar');
-var moduloBorrar = require('./modulos/moduloBorrar');
+var moduloLeer = require('./modulos/modulosCrud/moduloLeer');
+var moduloGuardar = require('./modulos/modulosCrud/moduloGuardar');
+var moduloActualizar = require('./modulos/modulosCrud/moduloActualizar');
+var moduloBorrar = require('./modulos/modulosCrud/moduloBorrar');
 var moduloLeerChat = require('./modulos/moduloLeerChat');
 var moduloGuardarChat = require('./modulos/moduloGuardarChat');
 var app = express();
@@ -12,12 +12,13 @@ var handlebars = require('express-handlebars');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 //----------------------------------------------
-
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-
 //------------------------
+var fecha = new Date();
+var fecha_actual= fecha.getDay() + "/" + fecha.getMonth() + "/" + fecha.getFullYear() + " " + fecha.getHours() + ":" + fecha.getMinutes() + ":" + fecha.getSeconds() + " "
 var arreglo = [];
+var arreglocarrito = [];
 // configuracion handlebars
 app.engine('hbs', handlebars({
     extname: ".hbs",
@@ -29,26 +30,27 @@ app.set("view engine", "hbs");
 app.set("views", "./views");
 app.use(express.static("public"));
 
-//------------------------- Agregar Producto vista------------------------------
-router.get('/productos/agregar', function (req, res) {
-    res.status(200).render('agregar_producto');
-});
-//------------------------------Guardar Producto---------------------------------------
-router.post('/productos/', function (req, res) {
-    moduloGuardar.guardar(req.body.nombre, req.body.precio, req.body.url, fs,`./datos/productos.js`);
-    res.status(200).redirect('/productos/agregar');
-});
 
+
+//------------------------- Agregar Producto vista------------------------------
+router.get(`/productos/agregar`, function (req, res) {
+    res.status(200).render('agregar_producto');
+})
+//------------------------------Guardar Producto---------------------------------------
+router.post(`/productos/`, function (req, res) {
+    moduloGuardar.guardar(false, fecha_actual,req.body.nombre,req.body.des,req.body.cod,req.body.url, req.body.precio,req.body.stock,fs,`./datos/productos.js`,true);
+    res.status(200).redirect(`/productos/listar`);
+});
 //-----------------------------Ver todos los productos----------------------------------------
 moduloLeer.leer(fs,`./datos/productos.js`).then(function (guardados) {
     if (guardados)
         arreglo = JSON.parse(guardados);
     
-        router.get('/productos/listar', function (req, res) {
+        router.get(`/productos/listar`, function (req, res) {
         res.status(200).render('listar_todos_productos', { arreglo: arreglo, listExists: true });
     });
 //-----------------------Producto individual vista------------------------------------    
-    router.get('/productos/listar/:id', function (req, res) {
+    router.get(`/productos/listar/:id`, function (req, res) {
         var id = parseInt(req.params.id);
         var existe = false;
         arreglo.forEach(function (element, index) {
@@ -64,13 +66,55 @@ moduloLeer.leer(fs,`./datos/productos.js`).then(function (guardados) {
 });
 
 //------------------------------Actualizar Producto---------------------------------------
-router.put('/productos/:id', function (req, res) {
-    moduloActualizar.actualizar(req.body.nombre, req.body.precio, req.body.url, parseInt(req.params.id), fs,`./datos/productos.js`);
+router.put(`/productos/:id`, function (req, res) {
+    moduloActualizar.actualizar( fecha_actual,req.body.nombre,req.body.des,req.body.cod,req.body.url, req.body.precio,req.body.stock,parseInt(req.params.id),fs,`./datos/productos.js`);
     res.status(200).json("actualizado");
 });
 //-------------------------------Borrar Producto-------------------------------------
-router["delete"]('/productos/:id', function (req, res) {
+router["delete"](`/productos/:id`, function (req, res) {
     moduloBorrar.borrar(parseInt(req.params.id), fs,`./datos/productos.js`);
+    res.status(200).json("Borrado");
+});
+
+
+//------------------------------Guardar en Carrito---------------------------------------
+router.post(`/carrito`, function (req, res) {
+    moduloGuardar.guardar(req.body.id, fecha_actual,req.body.nombre,req.body.des,req.body.cod,req.body.url, req.body.precio,req.body.stock,fs,`./datos/carrito.js`,false);
+    console.log(req.body.id)
+    res.status(200).redirect(`/carrito/listar`);
+});
+//-----------------------------Ver carrito----------------------------------------
+moduloLeer.leer(fs,`./datos/carrito.js`).then(function (guardados) {
+    if (guardados)
+    arreglocarrito = JSON.parse(guardados);
+    
+        router.get(`/carrito/listar`, function (req, res) {
+        res.status(200).render('listar_carrito', { arreglo: arreglocarrito, listExists: true });
+    });
+})
+   //-----------------------Producto individual vista------------------------------------
+   moduloLeer.leer(fs,`./datos/productos.js`).then(function (guardados) {
+    if (guardados)
+    arregloc = JSON.parse(guardados);
+      
+   router.get(`/carrito/agregar/:id`, function (req, res) {
+    var id = parseInt(req.params.id);
+    var existe = false;
+    arreglo.forEach(function (element, index) {
+        if (element.id == id) {
+            res.status(200).render('agregar_carrito', { arreglo: arreglo[index], listExists: true });
+            existe = true;
+        }
+    });
+    if (!existe) {
+        return res.status(400).json({ "error": "Producto no encontrado" });
+    }
+});
+});
+
+//-------------------------------Borrar carrito-------------------------------------
+router["delete"](`/carrito/:id`, function (req, res) {
+    moduloBorrar.borrar(parseInt(req.params.id), fs,`./datos/carrito.js`);
     res.status(200).json("Borrado");
 });
 
@@ -105,7 +149,10 @@ io.on('connection', function (socket) {
     socket.on('paquete', function (data) {
         moduloGuardarChat.guardar(data.mail, data.mensaje, data.fecha, fs);
     });
-    moduloLeer.leer(fs).then(function (guardados) {
+    moduloLeer.leer(fs,`./datos/productos.js`).then(function (guardados) {
         socket.emit('lista', JSON.parse(guardados));
+    });
+    moduloLeer.leer(fs,`./datos/carrito.js`).then(function (guardados) {
+        socket.emit('lista_carrito', JSON.parse(guardados));
     });
 });

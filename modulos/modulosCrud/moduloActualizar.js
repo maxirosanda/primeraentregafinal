@@ -1,5 +1,5 @@
 module.exports = {
-    actualizar : function(nombre,precio,url,id,fs,tabla) {
+    actualizar : function(timestamp,nombre,des,cod,url,precio,stock,id,fs,tabla) {
         let arreglo =[]
         let guardados
         async function leer(){
@@ -21,11 +21,16 @@ module.exports = {
             if(guardados) arreglo = JSON.parse(guardados)
             arreglo.forEach((element,index) =>{
                 if (element.id == id){
-                    var objeto =  {
+                 
+                    let objeto =  {
                         id : element.id,
-                        title: nombre,
-                        price: precio,
-                        thumbnail: url
+                        timestamp:timestamp,
+                        nombre: nombre,
+                        des:des,
+                        cod:cod,
+                        url: url,
+                        precio: precio,
+                        stock:stock   
                     }
                   arreglo.splice(index,1,objeto)    
                 }
